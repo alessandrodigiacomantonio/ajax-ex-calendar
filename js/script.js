@@ -13,6 +13,7 @@ $(document).ready(function() {
   var daysInMonth = parseInt( moment().endOf('years').format('D') );
   var monthName = moment().startOf('years').format('MMMM');
   getHolidays(monthNumber, monthName, daysInMonth);
+
 });
 
 function getHolidays(monthNumber, monthName, daysInMonth) {
@@ -21,9 +22,6 @@ function getHolidays(monthNumber, monthName, daysInMonth) {
       url: "https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+monthNumber+"",
       method: "GET",
       success: function(response) {
-        // var paolo = response.response[0].date;
-        // var giulio = paolo[paolo.length-2]+paolo[paolo.length-1];
-        // console.log(paolo, giulio);
         var source = $('#calendar_template').html();
         var calendar = Handlebars.compile(source);
         for (var days = 1; days <= daysInMonth; days++) {
@@ -31,11 +29,11 @@ function getHolidays(monthNumber, monthName, daysInMonth) {
             dayNumber: days+'',
             monthName: monthName,
             holidayName: function() {
-              for (var i = 0; i < response.response.length; i++) {
+              for ( var i = 0; i < response.response.length; i++ ) {
                 var dayNumber = response.response[i].date;
                 dayNumber = dayNumber[dayNumber.length-2]+dayNumber[dayNumber.length-1];
                 var thisDay = days+'';
-                if (days<10) thisDay = '0'+thisDay;
+                if ( days < 10 ) thisDay = '0'+thisDay;
                 if ( dayNumber == thisDay ) return response.response[i].name;
               }
             },
@@ -43,14 +41,14 @@ function getHolidays(monthNumber, monthName, daysInMonth) {
           var html = calendar(day);
           $('#calendar').append(html);
         };
-          $('.day').each(
-            function() {
-              if ( $(this).attr('data-holiday') != 0 ) $(this).addClass('holiday');
-            }
-          )
+        $('.day').each(
+          function() {
+            if ( $(this).attr('data-holiday') != 0 ) $(this).addClass('holiday');
+          }
+        );
       },
       error: function(request, stats, errors) {
-        alert('Mhè');
+        alert('Mhè'+errors);
       },
     }
   );
