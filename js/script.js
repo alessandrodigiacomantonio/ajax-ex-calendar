@@ -27,24 +27,27 @@ function getHolidays(monthNumber, monthName, daysInMonth) {
         var source = $('#calendar_template').html();
         var calendar = Handlebars.compile(source);
         for (var days = 1; days <= daysInMonth; days++) {
-          console.log(days,daysInMonth);
           var day = {
             dayNumber: days+'',
             monthName: monthName,
             holidayName: function() {
-                for (var i = 0; i < response.response.length; i++) {
-                  console.log(response.response.length);
-                  var dayNumber = response.response[i].date;
-                  dayNumber = dayNumber[dayNumber.length-2]+dayNumber[dayNumber.length-1];
-                  var thisDay = days+'';
-                  if (days<10) thisDay = '0'+thisDay;
-                  if ( dayNumber == thisDay ) return response.response[i].name;
-                }
+              for (var i = 0; i < response.response.length; i++) {
+                var dayNumber = response.response[i].date;
+                dayNumber = dayNumber[dayNumber.length-2]+dayNumber[dayNumber.length-1];
+                var thisDay = days+'';
+                if (days<10) thisDay = '0'+thisDay;
+                if ( dayNumber == thisDay ) return response.response[i].name;
+              }
             },
           };
           var html = calendar(day);
           $('#calendar').append(html);
         };
+          $('.day').each(
+            function() {
+              if ( $(this).attr('data-holiday') != 0 ) $(this).addClass('holiday');
+            }
+          )
       },
       error: function(request, stats, errors) {
         alert('Mhè');
