@@ -18,9 +18,13 @@
 </head>
 <body class="body">
   <main class="main">
-    <table class="calendar">
+    <!-- <table class="calendar">
       <theader class="theader">
         <tr class="tr">
+          <th class="calendar__month" role="title"> <span>2018</span></th>
+        </tr>
+        <tr class="tr">
+          <th class="calendar__week-number" data-week="N°"></th>
           <th class="calendar__day-name" data-day="1">Luned&igrave;</th>
           <th class="calendar__day-name" data-day="2">Marted&igrave;</th>
           <th class="calendar__day-name" data-day="3">Mercoled&igrave;</th>
@@ -30,8 +34,21 @@
           <th class="calendar__day-name" data-day="0">Domenica</th>
         </tr>
       </theader>
-    </table>
+      <tbody class="tbody">
+
+      </tbody>
+    </table> -->
+
+    <ul class="calendar">
+
+    </ul>
   </main>
-  <script id="" type="x-handlebars-template"></script>
+  <script id="calendar_template" type="x-handlebars-template">
+    <li class="day">{{dayNumber}} {{monthName}} {{holidayName}}</li>
+  </script>
+
+  <script id="month_template" type="x-handlebars-template">
+    <h2 class="month">{{monthName}}</h2>
+  </script>
 </body>
 </html>
