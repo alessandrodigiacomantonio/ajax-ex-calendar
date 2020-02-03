@@ -28,16 +28,8 @@ function getHolidays(monthNumber, monthName, daysInMonth) {
           var day = {
             dayNumber: days+'',
             monthName: monthName,
-            holidayName: function() {
-              for ( var i = 0; i < response.response.length; i++ ) {
-                var dayNumber = response.response[i].date;
-                dayNumber = dayNumber[dayNumber.length-2]+dayNumber[dayNumber.length-1];
-                var thisDay = days+'';
-                if ( days < 10 ) thisDay = '0'+thisDay;
-                if ( dayNumber == thisDay ) return response.response[i].name;
-              }
-            },
-          };
+            holidayName: holidayName(response.response,days),
+          }
           var html = calendar(day);
           $('#calendar').append(html);
         };
@@ -52,4 +44,14 @@ function getHolidays(monthNumber, monthName, daysInMonth) {
       },
     }
   );
+}
+
+function holidayName(response,days) {
+  for ( var i = 0; i < response.length; i++ ) {
+    var dayNumber = response[i].date;
+    dayNumber = dayNumber[dayNumber.length-2]+dayNumber[dayNumber.length-1];
+    var thisDay = days+'';
+    if ( days < 10 ) thisDay = '0'+thisDay;
+    if ( dayNumber == thisDay ) return response[i].name;
+  }
 }
