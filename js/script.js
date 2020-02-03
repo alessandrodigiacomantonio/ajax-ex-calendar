@@ -9,17 +9,20 @@ $(document).ready(function() {
         "Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"
     ],
   });
-  var monthNumber = parseInt( moment().startOf('years').format('m') );
-  var daysInMonth = parseInt( moment().endOf('years').format('D') );
-  var monthName = moment().startOf('years').format('MMMM');
-  getHolidays(monthNumber, monthName, daysInMonth);
+  var initialDate = moment([2018, 0, 31]);
+  var date = initialDate;
+  // var monthNumber = date.format('M');
+  // var monthName = date.format('MMMM');
+  // var daysInMonth = parseInt(date.format('D'));
+  // var years = date.format('YYYY');
+  getHolidays( date.format('M'), date.format('MMMM'), parseInt(date.format('D')) );
 
 });
 
-function getHolidays(monthNumber, monthName, daysInMonth) {
+function getHolidays( monthNumber, monthName, daysInMonth ) {
   $.ajax(
     {
-      url: "https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+monthNumber+"",
+      url: "https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+(monthNumber-1),
       method: "GET",
       success: function(response) {
         var source = $('#calendar_template').html();
