@@ -10,7 +10,7 @@ $(document).ready(function() {
     ],
   });
   var monthNumber = parseInt( moment().startOf('years').format('m') );
-  var daysInMonth = parseInt( moment().startOf('years').format('D') );
+  var daysInMonth = parseInt( moment().endOf('years').format('D') );
   var monthName = moment().startOf('years').format('MMMM');
   getHolidays(monthNumber, monthName, daysInMonth);
 });
@@ -33,12 +33,11 @@ function getHolidays(monthNumber, monthName, daysInMonth) {
             monthName: monthName,
             holidayName: function() {
                 for (var i = 0; i < response.response.length; i++) {
-                  console.log(i);
+                  console.log(response.response.length);
                   var dayNumber = response.response[i].date;
                   dayNumber = dayNumber[dayNumber.length-2]+dayNumber[dayNumber.length-1];
                   var thisDay = days+'';
                   if (days<10) thisDay = '0'+thisDay;
-                  console.log(dayNumber, dayNumber == thisDay)
                   if ( dayNumber == thisDay ) return response.response[i].name;
                 }
             },
