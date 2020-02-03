@@ -11,11 +11,30 @@ $(document).ready(function() {
   });
   var initialDate = moment([2018, 0, 31]);
   var date = initialDate;
-  // var monthNumber = date.format('M');
-  // var monthName = date.format('MMMM');
-  // var daysInMonth = parseInt(date.format('D'));
-  // var years = date.format('YYYY');
   getHolidays( date.format('M'), date.format('MMMM'), parseInt(date.format('D')) );
+
+  $('.indietro').on('click',
+  function(){
+      date.subtract(1,'months');
+      if (date.format('YYYY') == '2018') {
+      $('.day').remove();
+      getHolidays( date.format('M'), date.format('MMMM'), parseInt(date.format('D')) )
+    } else {
+      date.add(1,'months')
+      alert('Mhé');
+    }
+  });
+  $('.avanti').on('click',
+  function() {
+      date.add(1,'months');
+      if (date.format('YYYY') == '2018') {
+      $('.day').remove();
+      getHolidays( date.format('M'), date.format('MMMM'), parseInt(date.format('D')) )
+    } else {
+        date.subtract(1,'months')
+        alert('Mhé');
+      }
+  });
 
 });
 
