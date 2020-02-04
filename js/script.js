@@ -12,14 +12,14 @@ $(document).ready(function() {
   var initialDate = moment([2018, 0, 1]);
   var date = initialDate;
   console.log(date.daysInMonth())
-  getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth() );
+  getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') );
 
   $('.indietro').on('click',
   function(){
       date.subtract(1, 'months');
       if (date.format('YYYY') == '2018') {
       $('.day').remove();
-      getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth() )
+      getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY'))
     } else {
       date.add(1,'months')
       alert('Mhé');
@@ -30,7 +30,7 @@ $(document).ready(function() {
       date.add(1,'months');
       if (date.format('YYYY') == '2018') {
       $('.day').remove();
-      getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth() )
+      getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
     } else {
         date.subtract(1,'months')
         alert('Mhé');
@@ -39,7 +39,8 @@ $(document).ready(function() {
 
 });
 
-function getHolidays( monthNumber, monthName, daysInMonth ) {
+function getHolidays( monthNumber, monthName, daysInMonth, year ) {
+  $('.month_and_year').text(monthName + year);
   $.ajax(
     {
       url: "https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+(monthNumber-1),
