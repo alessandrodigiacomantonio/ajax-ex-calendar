@@ -18,7 +18,7 @@ $(document).ready(function() {
   var date = initialDate;
   var alertShowed = false;
   getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') );
-  // ↑ variabili globali e stampa calendario di default ↑
+  // ↑ variabili globali e stampa mese del calendario settato di default ↑
 
   // ↓ funzioni onClick ↓
   $('.past_month').on('click', function(){
