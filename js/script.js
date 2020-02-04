@@ -13,7 +13,7 @@ $(document).ready(function() {
   });
   // ↑ settate date in italiano ↑
 
-  // ↓ variabili globali e stampa calendario di default ↓
+  // ↓ variabili globali e stampa mese del calendario settato di default ↓
   var initialDate = moment([2018, 0, 1]);
   var date = initialDate;
   var alertShowed = false;
