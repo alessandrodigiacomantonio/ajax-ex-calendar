@@ -1,5 +1,7 @@
+// ↓ corpo principale dello script ↓
 $(document).ready(function() {
 
+  // ↓ settate date in italiano ↓
   moment.updateLocale('it', {
     months : [
         "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio",
@@ -9,48 +11,39 @@ $(document).ready(function() {
         "Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"
     ],
   });
+  // ↑ settate date in italiano ↑
+
+  // ↓ variabili globali e stampa calendario di default ↓
   var initialDate = moment([2018, 0, 1]);
   var date = initialDate;
   getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') );
+  // ↑ variabili globali e stampa calendario di default ↑
 
+  // ↓ funzioni onClick ↓
   $('.past_month').on('click', function(){
     getPastCalendarMonth(date);
-  });
-  $(document).on('keydown',
-  function(event) {
-    if (event.keyCode == 37) {
-      event.preventDefault();
-      getPastCalendarMonth(date);
-    }
-  });
-  $(document).on('keydown',
-  function(event) {
-    if (event.keyCode == 40) {
-      event.preventDefault();
-      getPastCalendarYear(date);
-    }
   });
 
   $('.next_month').on('click', function() {
     getNextCalendarMonth(date);
   });
+  // ↑ funzioni onClick ↑
+
+  // ↓ funzioni onKeydown ↓
   $(document).on('keydown',
   function(event) {
-    if (event.keyCode == 39) {
-      event.preventDefault();
-      getNextCalendarMonth(date);
-    }
+    event.preventDefault();
+    if (event.keyCode == 37) getPastCalendarMonth(date);
+    if (event.keyCode == 38) getNextCalendarYear(date);
+    if (event.keyCode == 39) getNextCalendarMonth(date);
+    if (event.keyCode == 40) getPastCalendarYear(date);
   });
-  $(document).on('keydown',
-  function(event) {
-    if (event.keyCode == 38) {
-      event.preventDefault();
-      getNextCalendarYear(date);
-    }
-  });
+  // ↑ funzioni onKeydown ↑
 
 });
+// ↑ corpo principale dello script ↑
 
+// ↓ elenco funzioni ↓
 function getHolidays( monthNumber, monthName, daysInMonth, year ) {
   $('.month_and_year').text(monthName + year);
   $.ajax(
@@ -149,3 +142,4 @@ function getPastCalendarYear(date) {
     if (date.format('M') == '12' && date.format('YYYY') == '2017' || date.format('M') == '1' && date.format('YYYY') == '2019' ) alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
   }
 }
+// ↑ elenco funzioni ↑
