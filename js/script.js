@@ -42,7 +42,6 @@ $(document).ready(function() {
       event.preventDefault();
       getNextCalendarYear(date, alertShowed);
       alertShowed = true;
-
     }
     if (event.keyCode == 39) {
       event.preventDefault();
@@ -53,7 +52,6 @@ $(document).ready(function() {
       event.preventDefault();
       getPastCalendarYear(date, alertShowed);
       alertShowed = true;
-
     }
   });
   // ↑ funzioni onKeydown ↑
@@ -117,47 +115,28 @@ function getCalendarMonth( monthNumber, monthName, daysInMonth, year ) {
   }
 }
 
+
 function getPastCalendarMonth(date, alertShowed) {
   date.subtract(1, 'months');
-  $('.day').remove();
-  if (date.format('YYYY') == '2018') {
-  getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY'))
-  } else {
-    getCalendarMonth( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
-    if ( !alertShowed ) {
-      alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
-    }
-  }
+  getCalendar(date, alertShowed);
 }
 
 function getNextCalendarMonth(date, alertShowed) {
   date.add(1,'months');
-  $('.day').remove();
-  if (date.format('YYYY') == '2018') {
-  getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
-  } else {
-    getCalendarMonth( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
-    if ( !alertShowed ) {
-      alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
-    }
-  }
+  getCalendar(date, alertShowed);
 }
 
 function getNextCalendarYear(date, alertShowed) {
   date.add(1,'years');
-  $('.day').remove();
-  if (date.format('YYYY') == '2018') {
-  getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
-  } else {
-    getCalendarMonth( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
-    if ( !alertShowed ) {
-      alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
-    }
-  }
+  getCalendar(date, alertShowed);
 }
 
 function getPastCalendarYear(date, alertShowed) {
   date.subtract(1,'years');
+  getCalendar(date, alertShowed);
+}
+
+function getCalendar(date, alertShowed) {
   $('.day').remove();
   if (date.format('YYYY') == '2018') {
   getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
@@ -167,10 +146,6 @@ function getPastCalendarYear(date, alertShowed) {
       alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
     }
   }
-}
-
-function alertShowed(booleanValue) {
-  if (booleanValue == false) return true;
 }
 
 // ↑ elenco funzioni ↑
