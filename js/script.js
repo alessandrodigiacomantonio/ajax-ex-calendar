@@ -16,23 +16,23 @@ $(document).ready(function() {
   $('.indietro').on('click',
   function(){
       date.subtract(1, 'months');
-      if (date.format('YYYY') == '2018') {
       $('.day').remove();
+      if (date.format('YYYY') == '2018') {
       getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY'))
     } else {
-      date.add(1,'months')
-      alert('Mhé');
+      getCalendarMonth( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
+      if (date.format('M') == '12' && date.format('YYYY') == '2017' || date.format('M') == '1' && date.format('YYYY') == '2019' ) alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
     }
   });
   $('.avanti').on('click',
   function() {
       date.add(1,'months');
-      if (date.format('YYYY') == '2018') {
       $('.day').remove();
+      if (date.format('YYYY') == '2018') {
       getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
     } else {
-        date.subtract(1,'months')
-        alert('Mhé');
+        getCalendarMonth( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
+        if (date.format('M') == '12' && date.format('YYYY') == '2017' || date.format('M') == '1' && date.format('YYYY') == '2019' ) alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
       }
   });
 
@@ -76,5 +76,19 @@ function holidayName(response,days) {
     var thisDay = days+'';
     if ( days < 10 ) thisDay = '0'+thisDay;
     if ( dayNumber == thisDay ) return response[i].name;
+  }
+}
+
+function getCalendarMonth( monthNumber, monthName, daysInMonth, year ) {
+  var source = $('#calendar_template').html();
+  var calendar = Handlebars.compile(source);
+  $('.month_and_year').text(monthName + year);
+  for (var days = 1; days <= daysInMonth; days++) {
+    var day = {
+      dayNumber: days+'',
+      monthName: monthName,
+    }
+    var html = calendar(day);
+    $('#calendar').append(html);
   }
 }
