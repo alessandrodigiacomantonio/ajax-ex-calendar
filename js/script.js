@@ -16,9 +16,17 @@ $(document).ready(function() {
   $('.past_month').on('click', function(){
     getPastCalendarMonth(date);
   });
+  $(document).on('keydown',
+  function() {
+    if (event.keyCode == 37) getPastCalendarMonth(date);
+  });
 
   $('.next_month').on('click', function() {
     getNextCalendarMonth(date);
+  });
+  $(document).on('keydown',
+  function() {
+    if (event.keyCode == 39) getNextCalendarMonth(date);
   });
 
 });
