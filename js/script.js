@@ -13,27 +13,12 @@ $(document).ready(function() {
   var date = initialDate;
   getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') );
 
-  $('.indietro').on('click',
-  function(){
-      date.subtract(1, 'months');
-      $('.day').remove();
-      if (date.format('YYYY') == '2018') {
-      getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY'))
-    } else {
-      getCalendarMonth( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
-      if (date.format('M') == '12' && date.format('YYYY') == '2017' || date.format('M') == '1' && date.format('YYYY') == '2019' ) alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
-    }
+  $('.past_month').on('click', function(){
+    getPastCalendarMonth(date);
   });
-  $('.avanti').on('click',
-  function() {
-      date.add(1,'months');
-      $('.day').remove();
-      if (date.format('YYYY') == '2018') {
-      getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
-    } else {
-        getCalendarMonth( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
-        if (date.format('M') == '12' && date.format('YYYY') == '2017' || date.format('M') == '1' && date.format('YYYY') == '2019' ) alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
-      }
+
+  $('.next_month').on('click', function() {
+    getNextCalendarMonth(date);
   });
 
 });
@@ -90,5 +75,27 @@ function getCalendarMonth( monthNumber, monthName, daysInMonth, year ) {
     }
     var html = calendar(day);
     $('#calendar').append(html);
+  }
+}
+
+function getPastCalendarMonth(date) {
+  date.subtract(1, 'months');
+  $('.day').remove();
+  if (date.format('YYYY') == '2018') {
+  getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY'))
+  } else {
+    getCalendarMonth( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
+    if (date.format('M') == '12' && date.format('YYYY') == '2017' || date.format('M') == '1' && date.format('YYYY') == '2019' ) alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
+  }
+}
+
+function getNextCalendarMonth(date) {
+  date.add(1,'months');
+  $('.day').remove();
+  if (date.format('YYYY') == '2018') {
+  getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
+  } else {
+    getCalendarMonth( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') )
+    if (date.format('M') == '12' && date.format('YYYY') == '2017' || date.format('M') == '1' && date.format('YYYY') == '2019' ) alert('Per annate diverse dalla 2018, non è possibile stabilire festività');
   }
 }
