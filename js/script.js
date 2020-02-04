@@ -9,16 +9,17 @@ $(document).ready(function() {
         "Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"
     ],
   });
-  var initialDate = moment([2018, 0, 31]);
+  var initialDate = moment([2018, 0, 1]);
   var date = initialDate;
-  getHolidays( date.format('M'), date.format('MMMM'), parseInt(date.format('D')) );
+  console.log(date.daysInMonth())
+  getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth() );
 
   $('.indietro').on('click',
   function(){
-      date.subtract(1,'months');
+      date.subtract(1, 'months');
       if (date.format('YYYY') == '2018') {
       $('.day').remove();
-      getHolidays( date.format('M'), date.format('MMMM'), parseInt(date.format('D')) )
+      getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth() )
     } else {
       date.add(1,'months')
       alert('Mhé');
@@ -29,7 +30,7 @@ $(document).ready(function() {
       date.add(1,'months');
       if (date.format('YYYY') == '2018') {
       $('.day').remove();
-      getHolidays( date.format('M'), date.format('MMMM'), parseInt(date.format('D')) )
+      getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth() )
     } else {
         date.subtract(1,'months')
         alert('Mhé');
@@ -47,10 +48,11 @@ function getHolidays( monthNumber, monthName, daysInMonth ) {
         var source = $('#calendar_template').html();
         var calendar = Handlebars.compile(source);
         for (var days = 1; days <= daysInMonth; days++) {
+          console.log(days);
           var day = {
             dayNumber: days+'',
             monthName: monthName,
-            holidayName: holidayName(response.response,days),
+            holidayName: holidayName(response.response, days),
           }
           var html = calendar(day);
           $('#calendar').append(html);
