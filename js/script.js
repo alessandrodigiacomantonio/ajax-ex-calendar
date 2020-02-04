@@ -11,7 +11,6 @@ $(document).ready(function() {
   });
   var initialDate = moment([2018, 0, 1]);
   var date = initialDate;
-  console.log(date.daysInMonth())
   getHolidays( date.format('M'), date.format('MMMM'), date.daysInMonth(), date.format('YYYY') );
 
   $('.indietro').on('click',
@@ -49,7 +48,6 @@ function getHolidays( monthNumber, monthName, daysInMonth, year ) {
         var source = $('#calendar_template').html();
         var calendar = Handlebars.compile(source);
         for (var days = 1; days <= daysInMonth; days++) {
-          console.log(days);
           var day = {
             dayNumber: days+'',
             monthName: monthName,
