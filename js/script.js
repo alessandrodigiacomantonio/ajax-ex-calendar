@@ -35,21 +35,25 @@ $(document).ready(function() {
   function(event) {
     if (event.keyCode == 37) {
       event.preventDefault();
+      if (date.format('YYYY') != 2018) alertShowed = true;
       getPastCalendarMonth(date, alertShowed);
     }
     if (event.keyCode == 38) {
       event.preventDefault();
       getNextCalendarYear(date, alertShowed);
       alertShowed = true;
+
     }
     if (event.keyCode == 39) {
       event.preventDefault();
+      if (date.format('YYYY') != 2018) alertShowed = true;
       getNextCalendarMonth(date, alertShowed);
     }
     if (event.keyCode == 40) {
       event.preventDefault();
       getPastCalendarYear(date, alertShowed);
       alertShowed = true;
+
     }
   });
   // ↑ funzioni onKeydown ↑
@@ -153,7 +157,6 @@ function getNextCalendarYear(date, alertShowed) {
 }
 
 function getPastCalendarYear(date, alertShowed) {
-  console.log("in pastCalendarYear: ",alertShowed);
   date.subtract(1,'years');
   $('.day').remove();
   if (date.format('YYYY') == '2018') {
